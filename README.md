@@ -1,8 +1,16 @@
-# PoS
+# README
 
-Training set: len = 17000, good_answers = 0.70 
+Taggers used: Mystem, TreeTagger, Marmot, Hunpos
 
-Test set: len = 499, good_answers = 0.69 
+Ruscorpora PoS markup was taken as a golden standard
+
+---
+
+Training set: len = 17000 words, good_answers = 0.70 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
+
+Test set: len = 499 words, good_answers = 0.69 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
+
+---
 
 --SVC-- (models/mymodel_SVC.pkl)
 >accuracy = 0.9879 

@@ -1,6 +1,6 @@
 # README
 
-Taggers used: 
+## Taggers used: 
 1. Mystem 
 2. TreeTagger 
 3. Marmot 
@@ -10,20 +10,26 @@ Ruscorpora PoS markup was taken as a golden standard
 
 ---
 
-Training set: len = 17000 words, good_answers = 0.70 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
+## Training set
+len = 17000 words, good_answers = 0.70 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
 
-Test set: len = 499 words, good_answers = 0.69 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
+## Test set
+len = 499 words, good_answers = 0.69 (answers like data : [X,X,X,X] -> label : [X], where X is a PoS tag)
 
 ---
 
---SVC-- (models/mymodel_SVC.pkl)
+## --SVC-- 
+models/mymodel_SVC.pkl
 >accuracy = 0.9879 
 
---DecisionTreeClassifier-- (models/mymodel_DT.pkl)
+## --DecisionTreeClassifier-- 
+models/mymodel_DT.pkl
 >accuracy = 0.9859 
 
---GaussianNB-- (models/mymodel_NB.pkl)
+## --GaussianNB-- 
+models/mymodel_NB.pkl
 >accuracy = 0.9418 
 
---NER-- (models/NER)
+## --NER-- 
+models/NER
 >accuracy = 0.9299

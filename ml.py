@@ -50,11 +50,8 @@ def train_net(datafile):
     return model
 
 def train_svm(datafile):
-    indexes = {'A': 0, 'S': 1, 'V': 2, 'PR': 3, 'CONJ': 4, 'ADVPRO': 5, 'ADV-PRO': 6, 'INTJ': 7, 'ADV': 8,
-                   'PART': 9,
-                   'A-PRO': 10, 'SPRO': 11, 'S-PRO': 12, 'PRAEDIC': 13, 'APRO': 14, 'NUM': 15, 'ANUM': 16,
-                   'PARENTH': 17,
-                   '??': 18, 'NONLEX': 19, 'INIT': 20}
+    indexes = {'A': 0, 'S': 1, 'V': 2, 'PR': 3, 'CONJ': 4, 'ADVPRO': 5, 'ADV-PRO': 6, 'INTJ': 7, 'ADV': 8, 'PART': 9, 'A-PRO': 10,
+               'SPRO': 11, 'S-PRO': 12, 'PRAEDIC': 13, 'APRO': 14, 'NUM': 15, 'ANUM': 16, 'PARENTH': 17, '??': 18, 'NONLEX': 19, 'INIT': 20}
     all_data = open(datafile, 'r', encoding='utf-8').read().split('\n')
     data = put_indexes([i.split(';')[:-1] for i in all_data], indexes)
     labels = np.array([indexes[i.split(';')[-1]] for i in all_data], dtype=np.float32)
@@ -84,10 +81,29 @@ def train_svm(datafile):
     validate(val, validation_set_target)
     return model1, model2, model3, model4
 
+def load_ner(model_file_name):
+    net = tflearn.input_data(shape=[None, 4])
+    net = tflearn.fully_connected(net, 32)
+    net = tflearn.fully_connected(net, 32)
+    net = tflearn.fully_connected(net, 2, activation='softmax')
+    net = tflearn.regression(net)
+    model = tflearn.DNN(net)
+    model.load(model_file_name)
+    return model
 
-model_ner = train_net('set_to_train.txt')
-model1, model2, model3, model4 = train_svm('set_to_train.txt')
-joblib.dump(model1, 'mymodel_SVC.pkl')
+def pred(model, data):
+    back_indexes = {0: 'A', 1: 'S', 2: 'V', 3: 'PR', 4: 'CONJ', 5: 'ADVPRO', 6: 'ADV-PRO', 7: 'INTJ', 8: 'ADV', 9: 'PART', 10: 'A-PRO',
+     11: 'SPRO', 12: 'S-PRO', 13: 'PRAEDIC', 14: 'APRO', 15: 'NUM', 16: 'ANUM', 17: 'PARENTH', 18: '??', 19: 'NONLEX', 20: 'INIT'}
+    return [back_indexes[i] for i in model.predict(data)]
+
+#model_ner = train_net('set_to_train.txt')
+#model1, model2, model3, model4 = train_svm('set_to_train.txt')
+#joblib.dump(model1, 'mymodel_SVC.pkl')
 #joblib.dump(model2, 'mymodel_LR.pkl')
-joblib.dump(model3, 'mymodel_DT.pkl')
-joblib.dump(model4, 'mymodel_NB.pkl')
+#joblib.dump(model3, 'mymodel_DT.pkl')
+#joblib.dump(model4, 'mymodel_NB.pkl')
+
+svc = joblib.load('models/mymodel_SVC.pkl')
+dt = joblib.load('models/mymodel_DT.pkl')
+nb = joblib.load('models/mymodel_NB.pkl')
+ner = load_ner('models/NER/mymodel_ner_9299')

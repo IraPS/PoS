@@ -1,6 +1,10 @@
 # README
 
-Taggers used: Mystem, TreeTagger, Marmot, Hunpos
+Taggers used: 
+1. Mystem 
+2. TreeTagger 
+3. Marmot 
+4. Hunpos
 
 Ruscorpora PoS markup was taken as a golden standard
 

@@ -1,5 +1,9 @@
 # README
 
+## Baseline
+HMM Viterbi
+Accuracy = ??
+
 ## Taggers used: 
 1. Mystem 
 2. TreeTagger 
